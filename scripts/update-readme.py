@@ -5,8 +5,8 @@ from os import listdir, walk
 from os.path import isfile, join
 from pprint import PrettyPrinter
 
-images_path = './images/'
-plugins_path = './plugins/'
+images_path = '../images/'
+plugins_path = '../plugins/'
 show = PrettyPrinter(indent=4).pprint
 
 contents = ''
@@ -18,6 +18,13 @@ header = """
 ## Plugins
 """
 footer = """
+## Color Reference
+
+- GRAY: `#3c3c3c`
+- RED: `#d40000`
+- YELLOW: `#ffcc00`
+- GREEN: `#009800`
+
 ## Attributions
 
 Icons from [www.flaticon.com](www.flaticon.com) made by:
@@ -67,7 +74,7 @@ def main():
 
     add_content(footer.strip())
 
-    with open('./README.md', 'w+') as readme:
+    with open('../README.md', 'w+') as readme:
         readme.write(contents)
 
 
