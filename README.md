@@ -1,26 +1,20 @@
 # SwiftBar Plugins
 
+## Usage
+
 ## Plugins
 
-#### `github-pr-reviews.5m.py`
+#### `wireguard-manager.sh`
 
-Retrieves any Pull Requests that require peer review from GitHub/GitHub Enterprise using a Personal Access Token.
+Manages one or more connections to a WireGuard VPN.
 
+**Requires** : python3,wireguard-go,wireguard-tools
 
+![wireguard-manager.sh](./images/wireguard-manager.png)
 
-#### `gpu-usage.30s.py`
+## Attributions
 
-#### `dad-jokes.1h.sh`
+Icons from [www.flaticon.com](www.flaticon.com) made by:
 
-#### `network-bandwidth.5s.sh`
-
-#### `thermal-throttle-status.1m.sh`
-
-#### `mem-usage.3s.py`
-
-#### `cpu-usage.3s.sh`
-
-#### `wireguard.2m.sh`
-
-#### `bigip-edge-client.2m.sh`
+- Freepik
 
