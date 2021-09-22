@@ -9,7 +9,7 @@
 # <bitbar.author.github>rarango9</bitbar.author.github>
 # <bitbar.desc>Manages one or more connections to a WireGuard VPN.</bitbar.desc>
 # <bitbar.image>https://github.com/rarango9/swiftbar-plugins/images/wireguard-manager.png</bitbar.image>
-# <bitbar.dependencies>python3,wireguard-go,wireguard-tools</bitbar.dependencies>
+# <bitbar.dependencies>wireguard-go,wireguard-tools</bitbar.dependencies>
 # <bitbar.abouturl>https://github.com/rarango9/swiftbar-plugins/</bitbar.abouturl>
 #
 # == SWIFTBAR OPTIONAL METADATA FLAGS =========================================
