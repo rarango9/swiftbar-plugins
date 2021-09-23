@@ -4,6 +4,12 @@
 
 ## Plugins
 
+#### `gpu-toggle.py`
+
+Displays the active GPU and allows selecting integrated, dedicated or automatic switching.
+
+![gpu-toggle.py](../images/gpu-toggle.png)
+
 #### `network-bandwidth.sh`
 
 Displays the current download/upload bandwidth.
