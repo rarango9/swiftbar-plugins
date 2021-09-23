@@ -6,8 +6,8 @@ from os.path import isfile, join
 from pathlib import Path
 from pprint import PrettyPrinter
 
-images_path = '../images/'
-plugins_path = '../plugins/'
+images_path = './images/'
+plugins_path = './plugins/'
 show = PrettyPrinter(indent=4).pprint
 
 contents = ''
@@ -40,7 +40,7 @@ def add_content(text):
 
 
 def main():
-    chdir(str(Path(__file__).parent.resolve()))
+    chdir(str(Path(__file__).parent.resolve())[:-8])
 
     add_content(header.strip())
 
@@ -77,7 +77,7 @@ def main():
 
     add_content(footer.strip())
 
-    with open('../README.md', 'w+') as readme:
+    with open('./README.md', 'w+') as readme:
         readme.write(contents)
 
 

@@ -8,7 +8,7 @@
 
 Displays the active GPU and allows selecting integrated, dedicated or automatic switching.
 
-![gpu-toggle.py](../images/gpu-toggle.png)
+![gpu-toggle.py](./images/gpu-toggle.png)
 
 #### `network-bandwidth.sh`
 
@@ -16,7 +16,7 @@ Displays the current download/upload bandwidth.
 
 **Requires** : ifstat
 
-![network-bandwidth.sh](../images/network-bandwidth.png)
+![network-bandwidth.sh](./images/network-bandwidth.png)
 
 #### `wireguard-manager.sh`
 
@@ -24,7 +24,7 @@ Manages one or more connections to a WireGuard VPN.
 
 **Requires** : wireguard-go,wireguard-tools
 
-![wireguard-manager.sh](../images/wireguard-manager.png)
+![wireguard-manager.sh](./images/wireguard-manager.png)
 
 ## Color Reference
 
