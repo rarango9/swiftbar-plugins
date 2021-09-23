@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from os import listdir, walk
+from os import chdir, listdir, walk
 from os.path import isfile, join
+from pathlib import Path
 from pprint import PrettyPrinter
 
 images_path = '../images/'
@@ -39,6 +40,8 @@ def add_content(text):
 
 
 def main():
+    chdir(str(Path(__file__).parent.resolve()))
+
     add_content(header.strip())
 
     for plugin in sorted([p for p in listdir(plugins_path) if len(p.split('.')) == 2]):
