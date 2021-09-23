@@ -66,7 +66,7 @@ def main():
             image = join(images_path, image_filename)
 
         if any([dependencies, description, image]):
-            add_content(F"#### `{plugin}`")
+            add_content(F"### {plugin}")
 
             if description:
                 add_content(description)

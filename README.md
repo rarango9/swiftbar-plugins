@@ -4,13 +4,13 @@
 
 ## Plugins
 
-#### `gpu-toggle.py`
+### gpu-toggle.py
 
 Displays the active GPU and allows selecting integrated, dedicated or automatic switching.
 
 ![gpu-toggle.py](./images/gpu-toggle.png)
 
-#### `network-bandwidth.sh`
+### network-bandwidth.sh
 
 Displays the current download/upload bandwidth.
 
@@ -18,7 +18,7 @@ Displays the current download/upload bandwidth.
 
 ![network-bandwidth.sh](./images/network-bandwidth.png)
 
-#### `wireguard-manager.sh`
+### wireguard-manager.sh
 
 Manages one or more connections to a WireGuard VPN.
 
