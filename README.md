@@ -10,6 +10,12 @@ Displays the active GPU and allows selecting integrated, dedicated or automatic 
 
 ![gpu-toggle.py](./images/gpu-toggle.png)
 
+### memory-usage.py
+
+Shows the current system memmory usage and top 10 processes.
+
+![memory-usage.py](./images/memory-usage.png)
+
 ### network-bandwidth.sh
 
 Displays the current download/upload bandwidth.
