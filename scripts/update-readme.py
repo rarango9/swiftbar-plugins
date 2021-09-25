@@ -21,7 +21,7 @@ header = """
 footer = """
 ## Color Reference
 
-- GRAY: `#3c3c3c`
+- GRAY: `#4d4d4d`
 - RED: `#d40000`
 - YELLOW: `#ffcc00`
 - GREEN: `#009800`
@@ -66,7 +66,7 @@ def main():
             image = join(images_path, image_filename)
 
         if any([dependencies, description, image]):
-            add_content(F"### {plugin}")
+            add_content(F"### ❱❱ {plugin}")
 
             if description:
                 add_content(description)
