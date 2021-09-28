@@ -9,6 +9,7 @@ Any environment variables available in the scripts should be added to your `~/.b
 ## Plugins
 
 - [cpu-usage](./cpu-usage/README.md)
+- [github-requested-reviews](./github-requested-reviews/README.md)
 
 ## Color Reference
 
@@ -22,5 +23,6 @@ Any environment variables available in the scripts should be added to your `~/.b
 Icons from [www.flaticon.com](www.flaticon.com) made by:
 
 - Freepik
+- Pixel perfect
 - Prosymbols
 
