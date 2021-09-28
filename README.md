@@ -8,8 +8,8 @@ Any environment variables available in the scripts should be added to your `~/.b
 
 ## Plugins
 
-- [cpu-usage](./cpu-usage/README.md)
-- [github-requested-reviews](./github-requested-reviews/README.md)
+- [cpu-usage](./cpu-usage/)
+- [github-requested-reviews](./github-requested-reviews/)
 
 ## Color Reference
 
