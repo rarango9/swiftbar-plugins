@@ -2,35 +2,13 @@
 
 ## Usage
 
+Copy or create a symlink of the plugin script to your swiftbar plugins directory, usually `~/.swiftbar`.
+
+Any environment variables available in the scripts should be added to your `~/.bash_profile`.
+
 ## Plugins
 
-### ❱❱ gpu-toggle.py
-
-Displays the active GPU and allows selecting integrated, dedicated or automatic switching.
-
-![gpu-toggle.py](./images/gpu-toggle.png)
-
-### ❱❱ memory-usage.py
-
-Shows the current system memmory usage and top 10 processes.
-
-![memory-usage.py](./images/memory-usage.png)
-
-### ❱❱ network-bandwidth.sh
-
-Displays the current download/upload bandwidth.
-
-**Requires** : ifstat
-
-![network-bandwidth.sh](./images/network-bandwidth.png)
-
-### ❱❱ wireguard-manager.py
-
-Manages one or more connections to a WireGuard VPN.
-
-**Requires** : python3,wireguard-go,wireguard-tools
-
-![wireguard-manager.py](./images/wireguard-manager.png)
+- [cpu-usage](./cpu-usage/README.md)
 
 ## Color Reference
 
@@ -44,4 +22,5 @@ Manages one or more connections to a WireGuard VPN.
 Icons from [www.flaticon.com](www.flaticon.com) made by:
 
 - Freepik
+- Prosymbols
 
