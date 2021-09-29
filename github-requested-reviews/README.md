@@ -1,4 +1,4 @@
-# github-requested-reviews
+# <img src="./icon.svg" width="36" style="vertical-align: middle"> github-requested-reviews
 
 ## Metadata
 
@@ -26,5 +26,5 @@
 
 ## Screenshot
 
-![screenshot](./screenshot.png)
+![screenshot](./image.png)
 
