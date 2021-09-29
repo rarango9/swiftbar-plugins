@@ -146,7 +146,7 @@ def main():
 
     # Build the submenu.
     add_line('---')
-    add_line(F"{model} ({memory})", color='#ff4949')
+    add_line(F"{model} ({memory})", color=COLOR['yellow'])
     add_line('---')
 
     # Build the GPU toggle buttons.
