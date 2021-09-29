@@ -47,26 +47,24 @@ def main():
                     r'# <swiftbar.(\w+|\w+.*\w+)>(.*)</.*', line)[0]
                 metadata_optional[match[0]] = match[1]
 
-    # Set a path to the plugin screenshot if it exists.
-    screenshot_path = './screenshot.png'
-    if not isfile(F"{plugin_dir}/screenshot.png"):
-        screenshot_path = None
-
     # Begin formatting the content for markdown output.
-    add_content(F"# {plugin}")
+    icon_insert = '<img src="./icon.svg" width="36" style="vertical-align: middle">'
+    add_content(F"# {icon_insert} {plugin}")
+
     add_content(F'## Metadata')
     table_content = []
     for k, v in metadata.items():
         table_content.append([k, v])
     add_content(tabulate(table_content, ['key', 'value'], tablefmt="github"))
+
     add_content(F'## Optional Metadata')
     table_content = []
     for k, v in metadata_optional.items():
         table_content.append([k, v])
     add_content(tabulate(table_content, ['key', 'value'], tablefmt="github"))
-    if screenshot_path is not None:
-        add_content('## Screenshot')
-        add_content(F"![screenshot]({screenshot_path})")
+
+    add_content('## Screenshot')
+    add_content('![screenshot](./image.png)')
 
     # Create or overwrite the specific plugin README.
     with open(F"{plugin_dir}/README.md", 'w+') as readme:
