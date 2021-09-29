@@ -206,7 +206,8 @@ def main():
         add_line('!!',
                  image=ICON_MISSING_CREDENTIALS,
                  color=COLOR['red'],
-                 font='Menlo')
+                 font='Menlo',
+                 size='13')
         add_line('---')
         add_line('Access Token and Github Login must be set',
                  color=COLOR['red'])
@@ -232,7 +233,8 @@ def main():
         add_line('··',
                  image=ICON_DISCONNECTED,
                  color=COLOR['gray'],
-                 font='Menlo')
+                 font='Menlo',
+                 size='13')
         add_line('---')
         add_line('Cannot connect to github.disney.com', color=COLOR['white'])
 
@@ -241,7 +243,8 @@ def main():
         add_line('00',
                  image=ICON_NO_REVIEWS,
                  color=COLOR['white'],
-                 font='Menlo')
+                 font='Menlo',
+                 size='13')
         add_line('---')
         add_line('No Pull Requests to Review', color=COLOR['white'])
 
@@ -250,7 +253,8 @@ def main():
         add_line(F"{str(response['issueCount']).rjust(2).replace(' ', '0')}",
                  image=ICON_PENDING_REVIEWS,
                  color=COLOR['yellow'],
-                 font='Menlo')
+                 font='Menlo',
+                 size='13')
         add_line('---')
 
         # Loop through each PR and format them for the menu

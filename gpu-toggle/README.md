@@ -15,14 +15,13 @@
 
 ## Optional Metadata
 
-| key               | value                                                                           |
-|-------------------|---------------------------------------------------------------------------------|
-| hideAbout         | true                                                                            |
-| hideRunInTerminal | true                                                                            |
-| hideLastUpdated   | false                                                                           |
-| hideDisablePlugin | true                                                                            |
-| hideSwiftBar      | false                                                                           |
-| environment       | [SB_GRR_ACCESS_TOKEN:, SB_GRR_GITHUB_LOGIN:, SB_GRR_GITHUB_HOSTNAME:github.com] |
+| key               | value   |
+|-------------------|---------|
+| hideAbout         | true    |
+| hideRunInTerminal | true    |
+| hideLastUpdated   | false   |
+| hideDisablePlugin | true    |
+| hideSwiftBar      | false   |
 
 ## Screenshot
 

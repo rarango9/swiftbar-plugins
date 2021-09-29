@@ -6,8 +6,8 @@
 # <bitbar.version>v1.0</bitbar.version>
 # <bitbar.author>Rob Arango</bitbar.author>
 # <bitbar.author.github>rarango9</bitbar.author.github>
-# <bitbar.desc>Displays the </bitbar.desc>
-# <bitbar.image>https://github.com/rarango9/swiftbar-plugins/cpu-usage/screenshot.png</bitbar.image>
+# <bitbar.desc>Displays the current CPU usage and top 10 consuming processes.</bitbar.desc>
+# <bitbar.image>https://github.com/rarango9/swiftbar-plugins/cpu-usage/image.png</bitbar.image>
 # <bitbar.dependencies>python3,procps,top</bitbar.dependencies>
 # <bitbar.abouturl>https://github.com/rarango9/swiftbar-plugins/cpu-usage/README.md</bitbar.abouturl>
 #
