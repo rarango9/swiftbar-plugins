@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # # -*- coding: utf-8 -*-
 #
-# ❱❱ INFO
+# ❱❱ SVG2DATAURI
 # Easy way to convert a SVG into a PNG DataURI an even apply color.
 # =============================================================================
 
@@ -11,95 +11,72 @@ from subprocess import PIPE, Popen, run
 from sys import exit
 
 
-def convert_image(image_path, rgb):
-    print('Converting image to a datauri')
-
-    proc = Popen([
-        'convert',
-        '-units', 'PixelsPerInch',
-        '-background', 'none',
-        '-fuzz', "75%",
-        '-fill', rgb,
-        '-opaque', 'black',
-        '-resize', '38x38',
-        image_path,
-        '-density', '144',
-        'INLINE:PNG:-'
-    ], stdout=PIPE)
-
-    datauri = proc.communicate()[0].decode().split(',')[1]
-
-    if proc.returncode != 0:
-        print('Something went wrong during the conversion')
-        exit(1)
-    else:
-        return datauri
-
-
-def copy_to_clipboard(datauri):
-    print('Copied datauri string to clipboard')
-    run('pbcopy', universal_newlines=True, input=datauri)
-
-
-def hex_to_rgb(hex_color):
-    if hex_color is None:
-        rgb_str = 'rgb(255,255,255)'
-    else:
-        hex_color = hex_color.lstrip('#')
-        rgb_codes = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
-        rgb_str = F"rgb({rgb_codes[0]},{rgb_codes[1]},{rgb_codes[2]})"
-
-    print(F"Applying {rgb_str} color")
-    return rgb_str
-
-
 def parse_args():
     p = ArgumentParser()
-    p.add_argument('-c', metavar='HEX_COLOR', required=False)
-    p.add_argument('-i', metavar='IMAGE_PATH', required=True)
-    p.add_argument('-l', metavar='MAX_LINE_LENGTH', type=int, required=False)
-    p.add_argument('--copy', action='store_true', required=False)
+
+    # Required args.
+    p.add_argument('image_path', metavar='IMAGE_PATH')
+
+    # Optional args.
+    p.add_argument('-hc',
+                   help='Hex color code to apply',
+                   default='ffffff',
+                   required=False)
+    p.add_argument('-mll',
+                   help='Max line length for output',
+                   default=0,
+                   type=int,
+                   required=False)
+    p.add_argument('--copy',
+                   help='Copy datauri output to clipboard',
+                   action='store_true',
+                   required=False)
 
     return p.parse_args()
 
 
-def split_at_length(text, length):
-    index = 0
-    split_datauri = ''
+def main():
+    print('❱❱❱ SVG2DATAURI ❰❰❰')
+    args = parse_args()
 
-    for char in text:
-        split_datauri += char
-        index += 1
-        if index == length:
-            split_datauri += '\n'
-            index = 0
-
-    return split_datauri
-
-
-def validate_image(image_path):
-    if not isfile(image_path):
+    # Validate the image.
+    if not isfile(args.image_path):
         print('Image does not exist')
         exit(1)
-
-    if splitext(image_path)[1].lower() != '.svg':
+    if splitext(args.image_path)[1].lower() != '.svg':
         print(F"Image must be a SVG")
         exit(1)
 
-    print('Basic validation of image passed')
+    # Generate the RGB color code from Hex.
+    rgb_codes = tuple(int(args.hc.lstrip('#')[i:i+2], 16) for i in (0, 2, 4))
+    rgb_str = F"rgb{str(rgb_codes).replace(' ', '')}"
+    print(F"Using color => {rgb_str}")
 
+    # Convert the SVG to de-prefixed datauri.
+    print(F"Converting {args.image_path} to datauri")
+    proc = Popen(['convert', '-units', 'PixelsPerInch', '-background', 'none',
+                  '-fuzz', "75%", '-fill', rgb_str, '-opaque', 'black',
+                  '-resize', '38x38', args.image_path, '-density', '144',
+                  'INLINE:PNG:-'], stdout=PIPE)
+    result = proc.communicate()[0]
+    if proc.returncode != 0:
+        print('Something went wrong during the conversion')
+        exit(1)
+    else:
+        datauri = result.decode().split(',')[1]
 
-def main():
-    print('❱❱❱ Make DataURI ❰❰❰')
-    args = parse_args()
+    # Split the output at a specific line length if -mll was passed.
+    if args.mll is not None:
+        datauri = '\n'.join(
+            [datauri[i:i + args.mll] for i in range(0, len(datauri), args.mll)]
+        )
 
-    validate_image(args.i)
-    rgb = hex_to_rgb(args.c)
-    datauri = convert_image(args.i, rgb)
-    if args.l is not None:
-        datauri = split_at_length(datauri, args.l)
+    # Copy or output the datauri string.
     if args.copy:
-        copy_to_clipboard(datauri)
+        run('pbcopy', universal_newlines=True, input=datauri)
+        print('Copied datauri to clipboard')
+    else:
+        print('\n',  '=' * 80, datauri, '=' * 80, sep='\n')
 
 
 if __name__ == '__main__':
