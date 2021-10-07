@@ -1,4 +1,4 @@
-# <img src="./icon.svg" width="36" style="vertical-align: middle"> gpu-toggle
+# <img src='./icon.svg' width='36' style='vertical-align: text-bottom'> GPU Toggle
 
 ## Metadata
 
@@ -9,9 +9,9 @@
 | author        | Rob Arango                                                                                 |
 | author.github | rarango9                                                                                   |
 | desc          | Displays the active GPU and allows selecting integrated, dedicated or automatic switching. |
-| image         | https://github.com/rarango9/swiftbar-plugins/gpu-toggle/screenshot.png                     |
+| image         | https://github.com/rarango9/swiftbar-plugin-gpu-toggle/screenshot.png                      |
 | dependencies  | python3,pmset,system_profiler                                                              |
-| abouturl      | https://github.com/rarango9/swiftbar-plugins/gpu-toggle/README.md                          |
+| abouturl      | https://github.com/rarango9/swiftbar-plugin-gpu-toggle/README.md                           |
 
 ## Optional Metadata
 

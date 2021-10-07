@@ -1,4 +1,4 @@
-# <img src="./icon.svg" width="36" style="vertical-align: middle"> github-requested-reviews
+# <img src='./icon.svg' width='36' style='vertical-align: text-bottom'> Github Requested Reviews
 
 ## Metadata
 
@@ -9,9 +9,9 @@
 | author        | Rob Arango                                                                                                        |
 | author.github | rarango9                                                                                                          |
 | desc          | Retrieves any Pull Requests that require peer review from GitHub/GitHub Enterprise using a Personal Access Token. |
-| image         | https://github.com/rarango9/swiftbar-plugins/github-requested-reviews/screenshot.png                              |
+| image         | https://github.com/rarango9/swiftbar-plugin-github-requested-reviews/image.png                                    |
 | dependencies  | python3                                                                                                           |
-| abouturl      | https://github.com/rarango9/swiftbar-plugins/github-requested-reviews/README.md                                   |
+| abouturl      | https://github.com/rarango9/swiftbar-plugin-github-requested-reviews/README.md                                    |
 
 ## Optional Metadata
 

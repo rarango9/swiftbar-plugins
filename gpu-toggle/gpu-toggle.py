@@ -7,9 +7,9 @@
 # <bitbar.author>Rob Arango</bitbar.author>
 # <bitbar.author.github>rarango9</bitbar.author.github>
 # <bitbar.desc>Displays the active GPU and allows selecting integrated, dedicated or automatic switching.</bitbar.desc>
-# <bitbar.image>https://github.com/rarango9/swiftbar-plugins/gpu-toggle/screenshot.png</bitbar.image>
+# <bitbar.image>https://github.com/rarango9/swiftbar-plugin-gpu-toggle/screenshot.png</bitbar.image>
 # <bitbar.dependencies>python3,pmset,system_profiler</bitbar.dependencies>
-# <bitbar.abouturl>https://github.com/rarango9/swiftbar-plugins/gpu-toggle/README.md</bitbar.abouturl>
+# <bitbar.abouturl>https://github.com/rarango9/swiftbar-plugin-gpu-toggle/README.md</bitbar.abouturl>
 #
 # ❱❱ SWIFTBAR OPTIONAL METADATA FLAGS ❰❰
 # <swiftbar.hideAbout>true</swiftbar.hideAbout>
@@ -31,77 +31,49 @@ from sys import argv
 from time import sleep
 
 
-COLOR = {
-    "gray": "#737373",
-    "green": "#58f158",
-    "red": "#ff3434",
-    "white": "#ffffff",
-    "yellow": "#ffd735"
-}
+# Hex color code.
+YELLOW = '#ffd735'
 
 ICON_DEDICATED = """
 iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAQAAAACNCElAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB
 6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAFi
-UAABYlAUlSJPAAAAAHdElNRQflCR0ROSua4nAfAAAClklEQVRIx62WQW7iQBBFv4KF7UijiVggseQWn
-IHDsMkaKQucINiw4g6Edc7CCSJlkkAyYwlMu7v+LNo0JqSJo1C7RtRTubq6/gcOgiBYY19PlvEaGxgY
-qFimMt3GGhoZNniL9YR91gjiRFyCYMAeUyo9eA3XMFCRJFRUkmwjjQ3eQj2gYsoeA+LSD2uCYJcpSVL
-p5E9dhXLLnCSZy902fK3rhIokmbJLNP2wBgTS4pwscEMZFakWN9JDd56blqDhh12BEJgm74sEQ8Ny7M
-/3pikgrk51bbXDzSgliHw4zSzq6RgQoYHf+OVwAoFpc7H/PI45LjpHkgvdNhCHukIDTXsVBEEIiEcAs
-MMQScLMoYYMGXLocJm9WQ0AeCmyCQIEA+malsUVqFuXmHPIiCAYlXC53FmcRZkWuwwIsMYeU5nbLmgf
-yoMT2+E5U/ZYA/t2ruTeNH1VuXYc4cz+7lP2oSe7yZGZbkvyOcqDS3SbMzeVE7zHelDghIuDtkcE0XG
-wzjEu46IYGqUHqxgZ3kP3ROirylvdrqpkGa6BLTZY1vWwNOsO9XAEe/gMZ/Twub5GVsxVKCMH81blrc
-7IaBtqaHiHoeOFdbyDAhWfusHK1eWSbGPI1DVfOGZYBeVwIcduBSiZXlTKrBpn/cziCamzXMA5R+Mih
-8I/irj/BrjGDSJ4hxZAhBtcI9j9KvKXCjmseJ3rOb2d7aEv49IK4sx8ewWZwxW0W45WvH64HO3aZrG2
-zQ/XNhiwEJSnbwuK1VlxguKkzurgd6VuVZY64BJNNJzQv1QW4ccioyTCh/FSyR5IYQ8ecSKqGxf52rg
-0rDpXslTylaX6aPaej8zesmT25LTZO7Shy5/Z0LJBXsVrZJ8a5HevQf4PDyANh2dMXQ8AAAAldEVYdG
-RhdGU6Y3JlYXRlADIwMjEtMDktMjlUMTc6NTc6NDMrMDA6MDAK5UWEAAAAJXRFWHRkYXRlOm1vZGlme
-QAyMDIxLTA5LTI5VDE3OjU3OjQzKzAwOjAwe7j9OAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBl
-Lm9yZ5vuPBoAAAAASUVORK5CYII=
-""".replace('\n', '')
-
-ICON_DEDICATED_AUTO = """
-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
+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
 """.replace('\n', '')
 
 ICON_INTEGRATED = """
 iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAQAAAACNCElAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB
 6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAFi
-UAABYlAUlSJPAAAAAHdElNRQflCR0ROgQaHh6FAAABAklEQVRIx63WQQ6DIBAF0J9uxBt5QVsT996kh
-xNlfnfUVsAZhJ2JvnwQhgGKIyDA97LIsvY7dtwYAQHeyUhPL+PqdoSb1JMbSXKT1+oq0/1Rd7gEdeBM
-kz1RQqlMd6I2zpy/TwYuQU3s2HEyc0nKEQSdkQvYc5SVy1MAbFyZMnF5aojvDDruOpU6XZ56n7B3mdO
-nUqS7Xqv/kV87+F5GfapCunHtIQt9PM4zOw0VuY5zLAFelofqS+1oOs3Q8gfk60TF1ihx5k1b5kyprj
-nzQdelM1a00Ko4lrnKW6DZhZLl6q66DFd7CSe5+vYgyf1Q5i6tYUuV4O5QB65FGxo5dYP8AZ+3cx/RH
-XzpAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTA5LTI5VDE3OjU4OjA0KzAwOjAwugMufQAAACV0RVh0
-ZGF0ZTptb2RpZnkAMjAyMS0wOS0yOVQxNzo1ODowNCswMDowMMtelsEAAAAZdEVYdFNvZnR3YXJlAHd
-3dy5pbmtzY2FwZS5vcmeb7jwaAAAAAElFTkSuQmCC
-""".replace('\n', '')
-
-ICON_INTEGRATED_AUTO = """
-iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAQAAAACNCElAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB
-6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAAFi
-UAABYlAUlSJPAAAAAHdElNRQflCR0ROhAAxMr4AAABAUlEQVRIx63Wva7DIAwFYKtLyJalj5x7K2XPM
-/QVQ2KfDpXSPwI+BG8sn0Dgg0WypaISe5ttXvpNNjlRKiox2IiIaOMSNtGT1B9WAMBq/0uo3N0XdYZL
-UG8cddgfymCVu/uhVkyYXiuCS1A3dOhwo7kkFSAQBJJT2dLUgIHkDqkr7rjjSnBZCgDBFSk/56J8nJs
-qcxRV4kgqy0nsbaSoI25cerEZcW/nCR0EQ4F6cgMEHaY9AqLNFyZNitX0mNryApTlSi+N4Dw94OS83e
-ngmNzQVhFU5Dgqy/GxneV46pCr++oOuNpPOMnVjwdJ7oOip7SGI1WCO0O9cS3G0J1zD8gPrAaoyNIKN
-GUAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjEtMDktMjlUMTc6NTg6MTYrMDA6MDDhNj/KAAAAJXRFWHRk
-YXRlOm1vZGlmeQAyMDIxLTA5LTI5VDE3OjU4OjE2KzAwOjAwkGuHdgAAABl0RVh0U29mdHdhcmUAd3d
-3Lmlua3NjYXBlLm9yZ5vuPBoAAAAASUVORK5CYII=
+UAABYlAUlSJPAAAAAHdElNRQflCgQTLCkqbEGMAAACyElEQVRIx62W3WrjVhSFP/+WFlpq8IVvSi6Ck
+4E8RgfaRwi+qd/Bk8cKJJcTxoaYeZHQ2xA6HVl2jo7X6oVkWUmsND/euhBC0sc5++y912rwIALQBhqY
+JrtDxT0C3QdvHvyRAmpyQA8aZAAkfCcQ+Mb3AtGgAT0O1Mz/qIklRmPf+EofjFljIua+tWqZNWvWGOM
+PvvKNxmZZD4uEti5t219znMgGmvjc55rEgTaor7aty9CO9bAUE099Z9ueqm801NSbmGpo1PfUtnUXT/
+3cNhcs+IP4l+5s3+pYh57bTnWhC6e25zrUsW9t3cXxRxIWT9ezJJKyKHAQR55pohNf2059Frqh6zOnt
+q/XJ5p4FkewIAESFkSW+RoDARPaJiEpcCZ0dFSgPrklhFv+VOCOQscFqvi6bQIBAqumxrqMpx9JSMgw
+RsMtyhRXidPQmNUmLae61HjVDCB04Js8C5BsUPMqCniIm+e4BWwyfKMDgVDPV8X5jOpQdbg4Un72n+O
+vEVStnFno1KF24UJHs2pVUhbi1LeaVNP+GPUEd70+0sS3/pKjlnndG6O+jstiqEHtwJ3oOPaNKXsh7z
+gd/j/qKU6Hwqy3r9eI53L1LG6uobbfJ6yJA09finqM0zQbxE1j/YvRJG+cl6EquDOntiYuph2BVcvnt
+i5CVy9E5TgRurqwfX7fyqB2Nr819rrNhEg20H4OIN/9nkrjvUXratG+t520bac9NPp0o2TvHEF+PILe
+NxwLYbxST/sY296O7cB9KSiLNwjKn4Wg3DcDZGRvkrpkl9RtRThlK8J6VoQ1iyNKXLoV4Wq8zh78vss
+eVGEV4/Il9oWGLo2LXmdcdlmqWFqq7HWWqjR7nzdmL7d3udnLCvtXb/Ya1YeUNmp2f9O31j8Q6ZBX3g
+/AigY/A5EW4B6/ZH83FPmpDrYxyKLFih9r1i8amF0G+T8OddpxF07nmgAAACV0RVh0ZGF0ZTpjcmVhd
+GUAMjAyMS0xMC0wNFQxOTo0NDo0MSswMDowMCt3SNsAAAAldEVYdGRhdGU6bW9kaWZ5ADIwMjEtMTAt
+MDRUMTk6NDQ6NDErMDA6MDBaKvBnAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgA
+AAABJRU5ErkJggg==
 """.replace('\n', '')
 
 
@@ -114,7 +86,7 @@ def main():
     # Handle changing the GPU mode when selecting an option from the menubar.
     if len(argv) == 2:
         check_output(['sudo', 'pmset', '-a', 'gpuswitch', argv[1]])
-        sleep(2)
+        sleep(1)
 
     # Get GPU mode of integrated, dedicated or automatic switching.
     gpu_switch = [s for s in check_output(
@@ -129,31 +101,23 @@ def main():
 
     # Create the menubar icon and indicator.
     if gpu['sppci_bus'] == 'spdisplays_builtin':
-        if gpu_switch == '0':
-            add_line('', image=ICON_INTEGRATED)
-        else:
-            add_line('', image=ICON_INTEGRATED_AUTO)
+        add_line('', image=ICON_INTEGRATED)
     elif gpu['sppci_bus'] == 'spdisplays_pcie_device':
-        if gpu_switch == '1':
-            add_line('', image=ICON_DEDICATED)
-        else:
-            add_line('', image=ICON_DEDICATED_AUTO)
+        add_line('', image=ICON_DEDICATED)
+    add_line('---')
 
     # Get the GPU model and memory.
     model = gpu['sppci_model']
     memory = gpu.get('_spdisplays_vram', gpu.get('spdisplays_vram', ''))
 
     # Build the submenu.
-    add_line('---')
-    add_line(F"{model} ({memory})", color=COLOR['yellow'])
+    add_line(F"{model} ({memory})", color=YELLOW)
     add_line('---')
 
     # Build the GPU toggle buttons.
-    gpu_switch_opts = {
-        '0': 'Integrated GPU',
-        '1': 'Discrete GPU',
-        '2': 'Automatic Switching'
-    }
+    gpu_switch_opts = {'0': 'Integrated GPU',
+                       '1': 'Discrete GPU',
+                       '2': 'Automatic Switching'}
     for key, name in gpu_switch_opts.items():
         if gpu_switch == key:
             add_line(name)
