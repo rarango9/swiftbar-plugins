@@ -2,7 +2,7 @@
 #
 # ❱❱ METADATA ❰❰
 # <bitbar.title>Zoom Indicators</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.version>v1.1</bitbar.version>
 # <bitbar.author>Rob Arango</bitbar.author>
 # <bitbar.author.github>rarango9</bitbar.author.github>
 # <bitbar.desc>Displays indicators for zoom mic, video and screenshare.</bitbar.desc>
@@ -51,19 +51,19 @@ if application "zoom.us" is running then
 			if exists (menu bar item "Meeting" of menu bar 1) then
     
                 --Is mic hot?
-                set muteState to ":mic.fill:"
+                set muteState to ":mic:"
 				if exists (menu item MuteTitle of menu 1 of menu bar item "Meeting" of menu bar 1) then
 					set muteColor to "#0fb10f"
 				end if
 				
                 --Is screen sharing active?
-                set shareState to ":airplayvideo:"
+                set shareState to ":dock.rectangle:"
 				if not exists (menu item shareTitle of menu 1 of menu bar item "Meeting" of menu bar 1) then
 					set shareColor to "#0fb10f"
 				end if
 				
                 --Is video transmitting?
-				set videoState to ":video.fill:"
+				set videoState to ":video:"
 				if exists (menu item videoTitle of menu 1 of menu bar item "Meeting" of menu bar 1) then
 					set videoColor to "#0fb10f"
 				end if
