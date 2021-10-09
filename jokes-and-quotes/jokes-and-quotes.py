@@ -3,7 +3,7 @@
 #
 # ❱❱ METADATA ❰❰
 # <bitbar.title>Jokes and Quotes</bitbar.title>
-# <bitbar.version>v1.0</bitbar.version>
+# <bitbar.version>v1.1</bitbar.version>
 # <bitbar.author>Rob Arango</bitbar.author>
 # <bitbar.author.github>rarango9</bitbar.author.github>
 # <bitbar.desc>Grabs a random joke or quote on each execution.</bitbar.desc>
@@ -21,6 +21,7 @@
 
 from json import loads
 from random import randrange
+from time import sleep
 from urllib.request import Request, urlopen
 
 
@@ -90,33 +91,44 @@ def add_line(text, **kwargs):
 
 
 def get_joke():
-    url = ('https://v2.jokeapi.dev/joke/Programming,Miscellaneous,Pun,Spooky,'
-           'Christmas?blacklistFlags=nsfw,racist,sexist,explicit&type=single')
-    data = loads(urlopen(Request(url, headers=HEADERS)).read())
+    data = request('https://v2.jokeapi.dev/joke/Programming,Miscellaneous,'
+                   'Pun,Spooky,Christmas?blacklistFlags=nsfw,racist,sexist,'
+                   'explicit&type=single')
     if data['type'] == 'single':
-        return F"\n{data['joke']}\n".replace('\n', '\\n')
+        return F"\n{data['joke']}\n"
     else:
         return F"{data['setup']}\n\n{data['delivery']}"
 
 
 def get_quote():
-    url = 'https://zenquotes.io/api/random/'
-    data = loads(urlopen(Request(url, headers=HEADERS)).read())
+    data = request('https://zenquotes.io/api/random/')
     return F"\n{data[0]['q']}\n\n-- {data[0]['a']}\n"
+
+
+def request(url):
+    count = 0
+    while count < 8:
+        count += 1
+        try:
+            return loads(urlopen(Request(url, headers=HEADERS)).read())
+        except:
+            sleep(15)
+    # If we failed to get a response after 2 minutes, then we're likely
+    # off network and just exit with an error.
+    exit(1)
 
 
 def main():
     if randrange(0, 100) % 2 == 0:
-        add_line('', image=ICON_JOKES)
-        add_line('---')
+        icon = ICON_JOKES
         text = get_joke()
     else:
-        add_line('', image=ICON_QUOTES)
-        add_line('---')
+        icon = ICON_QUOTES
         text = get_quote()
 
-    add_line(':arrow.triangle.2.circlepath: Next Joke or Quote',
-             refresh='true')
+    add_line('', image=icon)
+    add_line('---')
+    add_line(':forward.fill: Next Item', refresh='true', sfcolor='#0fb10f')
     add_line('---')
     add_line(text.replace('\n', '\\n'), color=WHITE, font='Menlo', size='13')
 
