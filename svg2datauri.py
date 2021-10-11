@@ -66,7 +66,7 @@ def main():
         datauri = result.decode().split(',')[1]
 
     # Split the output at a specific line length if -mll was passed.
-    if args.mll is not None:
+    if args.mll != 0:
         datauri = '\n'.join(
             [datauri[i:i + args.mll] for i in range(0, len(datauri), args.mll)]
         )
